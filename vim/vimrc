@@ -1,0 +1,152 @@
+set nocompatible
+filetype off
+
+"plugins
+call plug#begin('~/.vim/bundle')
+
+Plug 'sjl/gundo.vim'
+Plug 'altercation/vim-colors-solarized'
+Plug 'gregsexton/MatchTag'
+Plug 'chrisbra/Recover.vim'
+Plug 'scrooloose/nerdtree'
+Plug 'mileszs/ack.vim'
+Plug 'coot/atp_vim'
+Plug 'VelkyVenik/vim-avr'
+Plug 'ctrlpvim/ctrlp.vim'
+Plug 'othree/html5.vim'
+Plug 'Mr-Pi/lagerLogSyntax'
+"Plug 'MarcWeber/vim-addon-mw-utils'
+"Plug 'tomtom/tlib_vim'
+"Plug 'garbas/vim-snipmate'
+"Plug 'honza/vim-snippets'
+Plug 'ap/vim-css-color'
+Plug 'hail2u/vim-css3-syntax'
+Plug 'tpope/vim-eunuch'
+Plug 'vim-scripts/L9'
+Plug 'krisajenkins/vim-pipe'
+Plug 'dhruvasagar/vim-table-mode'
+Plug 'christoomey/vim-tmux-navigator'
+Plug 'vim-erlang/vim-rebar'
+Plug 'vim-erlang/vim-erlang-compiler'
+Plug 'vim-erlang/vim-erlang-skeletons'
+Plug 'vim-erlang/vim-erlang-runtime'
+Plug 'vim-erlang/vim-erlang-omnicomplete'
+Plug 'vim-erlang/vim-erlang-tags'
+Plug 'vim-erlang/erlang-motions.vim'
+Plug 'vim-erlang/vim-dialyzer'
+Plug 'majutsushi/tagbar'
+Plug 'vim-scripts/taglist.vim'
+Plug 'scrooloose/syntastic'
+Plug 'Raimondi/delimitMate'
+
+call plug#end()
+filetype plugin indent on
+
+set background=dark
+let g:solarized_termcolors=256
+let g:solarized_termtrans=1
+let g:solarized_contrast="high"
+let g:solarized_visibility="high"
+"let g:solarized_bold=1
+"let g:solarized_underline=1
+"let g:solarized_italic=1
+colorscheme solarized
+set number
+set ignorecase
+set incsearch
+set nohlsearch
+set wildmenu
+set showcmd
+set bs=2 "allow backspace in insert mode
+set history=1500
+set autoread "Set to auto read when a file is changed from the outside
+set showmatch
+set wrap
+set encoding=utf-8
+set foldenable
+"set viminfo='100,\"1000,:100,%,n~/.vim/viminfo
+set mouse=""
+set cursorline
+set laststatus=2
+set ruler
+
+"show a undo tree (gundo)
+map <S-U> :GundoToggle<CR>
+let g:gundo_right = 1
+
+"better repeat command
+nmap . .`[
+
+"tab management
+set showtabline=2
+nmap tc :tabnew<CR>
+nmap tn :tabnext<CR>
+nmap tf :tabfirst<CR>
+nmap tp :tabprevious<CR>
+nmap to :tabnew<CR>:NERDTree<CR>
+
+"split screen
+nmap %vc :vsplit<CR>
+nmap %hc :split<CR>
+nmap %vn <C-w><C-w>
+
+"toggle line numbering and toggle show search result
+nmap <F6> :set invnumber<CR>
+nmap <C-n> :set invhlsearch<CR>
+
+"F7 toggles NERDTree
+nmap <F7> :NERDTreeToggle<CR>
+
+"text snippets
+nmap %dd i<C-r>=strftime("%F")<CR>
+nmap %dt i<C-r>=strftime("%T")<CR>
+
+"folding
+nmap fc :foldclose<CR>
+nmap fo :foldopen<CR>
+
+"spellcheck
+nmap %sn :set spell spelllang=""<CR>
+nmap %sd :set spell spelllang=de<CR>
+nmap %se :set spell spelllang=en<CR>
+
+"copy and past
+"	x = X11 clipboard
+"	s = system clipboard
+nmap %cx "*y
+nmap %cs "+y
+nmap %cv y
+nmap %xx "*x
+nmap %xs "+x
+nmap %xv x
+nmap %px "*p
+nmap %ps "+p
+nmap %pv p
+
+nmap ff <C-]>
+
+"leader
+let mapleader=","
+
+"tmux integration
+let g:tmux_navigator_save_on_switch=1
+nmap <C-Left> :TmuxNavigateLeft<CR>
+nmap <C-Down> :TmuxNavigateDown<CR>
+nmap <C-Up> :TmuxNavigateUp<CR>
+nmap <C-Right> :TmuxNavigateRight<CR>
+nmap <F2> :TmuxNavigatePrevious<CR>
+imap <C-Left> <ESC>:TmuxNavigateLeft<CR>a
+imap <C-Down> <ESC>:TmuxNavigateDown<CR>a
+imap <C-Up> <ESC>:TmuxNavigateUp<CR>a
+imap <C-Right> <ESC>:TmuxNavigateRight<CR>a
+imap <F2> <ESC>:TmuxNavigatePrevious<CR>a
+nmap <C-S-Up> :res +1<CR>
+nmap <C-S-Down> :res -1<CR>
+nmap <C-S-Right> :vertical resize +1<CR>
+nmap <C-S-Left> :vertical resize -1<CR>
+
+"help panel at the right site
+augroup helpfiles
+	au!
+	au BufRead,BufEnter */doc/* wincmd L
+augroup END

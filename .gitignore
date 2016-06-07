@@ -1,0 +1,6 @@
+/vim/bundle/
+/vim/spell/
+/vim/viminfo
+/zprezto/
+/zsh/oh-my-zsh/
+*.swp
