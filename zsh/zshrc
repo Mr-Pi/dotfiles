@@ -77,6 +77,9 @@ alias call="~/hg/remotecall/call.sh"
 alias callhandy="~/hg/remotecall/callhandy.sh"
 alias mail="i3-msg 'workspace mail'"
 alias trans='compton-trans'
+alias mv='mv -vi'
+alias cp='cp -vi'
+alias rm='rm -vI'
 
 if [[ -n $SSH_CONNECTION ]]; then
 	echo "remote session"
