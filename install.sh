@@ -49,10 +49,13 @@ function install_zsh {
 	echo "PUSHOVER_API_TOKEN=\"$PUSHOVER_API_TOKEN\"" >>~/.envConf
 }
 
-function insall_x11 {
+function install_x11 {
 	cd "${BASE_DIR}/X"
+	[ -L "${HOME}/.Xresources" ] && rm -v "${HOME}/.Xresources"
 	ln -sivT "Xresources" "${HOME}/.Xresources"
+	[ -L "${HOME}/.xinitrc" ] && rm -v "${HOME}/.xinitrc"
 	ln -sivT "xinitrc" "${HOME}/.xinitrc"
+	[ -L "${HOME}/.xsession" ] && rm -v "${HOME}/.xsession"
 	ln -sivT "xsession" "${HOME}/.xsession"
 }
 
