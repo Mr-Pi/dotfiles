@@ -50,13 +50,12 @@ function install_zsh {
 }
 
 function install_x11 {
-	cd "${BASE_DIR}/X"
 	[ -L "${HOME}/.Xresources" ] && rm -v "${HOME}/.Xresources"
-	ln -sivT "Xresources" "${HOME}/.Xresources"
+	ln -sivT "${BASE_DIR}/X/Xresources" "${HOME}/.Xresources"
 	[ -L "${HOME}/.xinitrc" ] && rm -v "${HOME}/.xinitrc"
-	ln -sivT "xinitrc" "${HOME}/.xinitrc"
+	ln -sivT "${BASE_DIR}/X/xinitrc" "${HOME}/.xinitrc"
 	[ -L "${HOME}/.xsession" ] && rm -v "${HOME}/.xsession"
-	ln -sivT "xsession" "${HOME}/.xsession"
+	ln -sivT "${BASE_DIR}/X/xsession" "${HOME}/.xsession"
 }
 
 function install_git {
