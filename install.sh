@@ -56,6 +56,7 @@ function install_x11 {
 	ln -sivT "${BASE_DIR}/X/xinitrc" "${HOME}/.xinitrc"
 	[ -L "${HOME}/.xsession" ] && rm -v "${HOME}/.xsession"
 	ln -sivT "${BASE_DIR}/X/xsession" "${HOME}/.xsession"
+	sudo cp -vi "${BASE_DIR}/xterm-screen-256color" "/usr/share/terminfo/x/xterm-screen-256color"
 }
 
 function install_git {
