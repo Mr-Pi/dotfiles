@@ -1,0 +1,8 @@
+if [ -x /usr/bin/gpg-agent ]; then
+	eval "$(/usr/bin/gpg-agent --daemon)"
+fi
+xrdb -merge /etc/X11/xinit/Xresources
+xrdb -merge ~/.Xresources
+xinput set-prop 'SynPS/2 Synaptics TouchPad' 'Synaptics Scrolling Distance' 80, 80
+xinput set-prop 'SynPS/2 Synaptics TouchPad' 'Synaptics Two-Finger Scrolling' 1, 1
+i3

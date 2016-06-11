@@ -49,6 +49,13 @@ function install_zsh {
 	echo "PUSHOVER_API_TOKEN=\"$PUSHOVER_API_TOKEN\"" >>~/.envConf
 }
 
+function insall_x11 {
+	cd "${BASE_DIR}/X"
+	ln -sivT "Xresources" "${HOME}/.Xresources"
+	ln -sivT "xinitrc" "${HOME}/.xinitrc"
+	ln -sivT "xsession" "${HOME}/.xsession"
+}
+
 function install_git {
 	git config --global user.email "git-contact@mr-pi.de"
 	git config --global user.name "Mr. Pi"
@@ -68,7 +75,7 @@ function install_vim {
 	rm -v $TMP_VIMRC
 }
 
-for job in i3 tmux zsh git vim; do
+for job in i3 tmux zsh git vim x11; do
 	log "installing configuration for '$job'"
 	install_${job}
 	cd "${BASE_DIR}"

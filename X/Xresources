@@ -1,0 +1,6 @@
+xterm*cursorColor:yellow
+xterm*cursorBlink:true
+xterm*cursorOffTime:200
+xterm*cursorOnTime:300
+xterm*foreground:YellowGreen
+xterm*background:black
