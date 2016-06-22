@@ -2,7 +2,7 @@
 # Please see http://i3wm.org/docs/userguide.html for a complete reference!
 
 set $mod Mod4
-exec --no-startup-id msi-keyboard -m normal -c left,blue,high -c middle,green,high -c right,red,medium
+exec --no-startup-id msi-keyboard -m normal -c middle,green,high -c right,red,medium
 exec ~/.xinitrc
 
 font pango:DejaVu Sans Mono 8
@@ -91,11 +91,18 @@ bindsym $mod+Shift+9 move container to workspace 9
 bindsym $mod+Shift+0 move container to workspace 10
 bindsym $mod+Shift+m move container to workspace mail
 
-bindsym XF86MyComputer exec "msi-keyboard -m normal -c left,red,hight -c middle,red,hight -c right,red,hight ; xbacklight -get >/tmp/xbacklight.txt ; xbacklight -time 100 -steps 5 -set 0 ; slock ; msi-keyboard -m normal -c left,blue,high -c middle,green,high -c right,red,medium ; xbacklight -time 2000 -steps 200 -set `cat /tmp/xbacklight.txt`"
-bindsym $mod+Shift+l exec "msi-keyboard -m normal -c left,red,hight -c middle,red,hight -c right,red,hight ; xbacklight -get >/tmp/xbacklight.txt ; xbacklight -time 100 -steps 5 -set 0 ; slock ; msi-keyboard -m normal -c left,blue,high -c middle,green,high -c right,red,medium ; xbacklight -time 2000 -steps 200 -set `cat /tmp/xbacklight.txt`"
+#bindsym XF86MyComputer exec "msi-keyboard -m normal -c left,red,hight -c middle,red,hight -c right,red,hight ; xbacklight -get >/tmp/xbacklight.txt ; xbacklight -time 100 -steps 5 -set 0 ; slock ; msi-keyboard -m normal -c left,blue,high -c middle,green,high -c right,red,medium ; xbacklight -time 2000 -steps 200 -set `cat /tmp/xbacklight.txt`"
+bindsym XF86MyComputer exec "msi-keyboard -m normal -c middle,red,hight -c right,red,hight ; xbacklight -get >/tmp/xbacklight.txt ; xbacklight -time 100 -steps 5 -set 0 ; slock ; msi-keyboard -m normal -c middle,green,high -c right,red,medium ; xbacklight -time 2000 -steps 200 -set `cat /tmp/xbacklight.txt`"
+bindsym $mod+Shift+l exec "msi-keyboard -m normal -c middle,red,hight -c right,red,hight ; xbacklight -get >/tmp/xbacklight.txt ; xbacklight -time 100 -steps 5 -set 0 ; slock ; msi-keyboard -m normal -c middle,green,high -c right,red,medium ; xbacklight -time 2000 -steps 200 -set `cat /tmp/xbacklight.txt`"
 bindsym XF86MonBrightnessUp exec "xbacklight -inc 2"
 bindsym XF86MonBrightnessDown exec "xbacklight -dec 2"
 bindsym $mod+p exec passmenu
+
+bindsym XF86AudioRaiseVolume exec "amixer -q sset Master 1%+"
+bindsym XF86AudioLowerVolume exec "amixer -q sset Master 1%-"
+
+bindsym $mod+t exec "compton-trans 80"
+bindsym $mod+Shift+t exec "compton-trans 100"
 
 workspace_auto_back_and_forth yes
 

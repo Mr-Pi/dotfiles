@@ -65,7 +65,9 @@ source $ZSH/oh-my-zsh.sh
 
 export NAME="Mr. Pi"
 export EMAIL="mrpi@mr-pi.de"
-export PATH="$HOME/.local/bin/:$PATH:$HOME/node_modules/.bin/"
+export PYTHONPATH="$HOME/.easy_install:/home/mrpi/.easy_install/lib/python2.7/site-packages"
+export PATH="$HOME/.local/bin/:$PATH:$HOME/node_modules/.bin/:$HOME/.easy_install/bin/"
+export LS_COLORS="di=0;35"
 
 alias ss="sudo su"
 alias readnote="echo -e \`cat ~/notiz.txt | grep -v '^#.*$'\`"
@@ -80,6 +82,7 @@ alias trans='compton-trans'
 alias mv='mv -vi'
 alias cp='cp -vi'
 alias rm='rm -vI'
+alias mkdir='mkdir -v'
 
 if [[ -n $SSH_CONNECTION ]]; then
 	echo "remote session"
