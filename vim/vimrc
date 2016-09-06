@@ -38,6 +38,10 @@ Plug 'majutsushi/tagbar'
 Plug 'vim-scripts/taglist.vim'
 Plug 'scrooloose/syntastic'
 Plug 'Raimondi/delimitMate'
+Plug 'elzr/vim-json'
+Plug 'vimwiki/vimwiki'
+Plug '907th/vim-auto-save'
+"Plug 'Yggdroot/indentLine'
 
 call plug#end()
 filetype plugin indent on
@@ -69,6 +73,8 @@ set mouse=""
 set cursorline
 set laststatus=2
 set ruler
+set t_ZH=[3m
+set t_ZR=[23m
 
 "show a undo tree (gundo)
 map <S-U> :GundoToggle<CR>
@@ -113,12 +119,12 @@ nmap %se :set spell spelllang=en<CR>
 "copy and past
 "	x = X11 clipboard
 "	s = system clipboard
-nmap %cx "*y
-nmap %cs "+y
-nmap %cv y
-nmap %xx "*x
-nmap %xs "+x
-nmap %xv x
+map %cx "*y
+map %cs "+y
+map %cv y
+map %xx "*x
+map %xs "+x
+map %xv x
 nmap %px "*p
 nmap %ps "+p
 nmap %pv p
@@ -150,3 +156,27 @@ augroup helpfiles
 	au!
 	au BufRead,BufEnter */doc/* wincmd L
 augroup END
+
+"gzip
+:augroup gzip
+:  autocmd!
+:  autocmd BufReadPre,FileReadPre	*.gz set bin
+:  autocmd BufReadPost,FileReadPost	*.gz '[,']!gunzip
+:  autocmd BufReadPost,FileReadPost	*.gz set nobin
+:  autocmd BufReadPost,FileReadPost	*.gz execute ":doautocmd BufReadPost " . expand("%:r")
+:  autocmd BufWritePost,FileWritePost	*.gz !mv <afile> <afile>:r
+:  autocmd BufWritePost,FileWritePost	*.gz !gzip <afile>:r
+
+:  autocmd FileAppendPre		*.gz !gunzip <afile>
+:  autocmd FileAppendPre		*.gz !mv <afile>:r <afile>
+:  autocmd FileAppendPost		*.gz !mv <afile> <afile>:r
+:  autocmd FileAppendPost		*.gz !gzip <afile>:r
+:augroup END
+
+"VimWiki
+let wiki2 = {}
+let wiki2.path = '~/hg/stuvusIT/wiki/vim/'
+let wiki2.path_html = '~/hg/stuvusIT/wiki/html'
+let wiki2.auto_export = 1
+let wiki2.auto_toc = 1
+let g:vimwiki_list = [wiki2]
