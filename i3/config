@@ -40,10 +40,10 @@ bindsym $mod+Shift+Up move up
 bindsym $mod+Shift+Right move right
 
 # split in horizontal orientation
-bindsym $mod+h split h
+bindsym $mod+v split h
 
 # split in vertical orientation
-bindsym $mod+v split v
+bindsym $mod+h split v
 
 # enter fullscreen mode for the focused container
 bindsym $mod+f fullscreen
@@ -146,3 +146,6 @@ bar {
 }
 
 assign [instance="Mail"] → mail
+assign [instance="spotify"] → mail
+assign [class="Spotify"] → mail
+assign [title="Spotify"] → mail
