@@ -66,7 +66,7 @@ source $ZSH/oh-my-zsh.sh
 export NAME="Mr. Pi"
 export EMAIL="mrpi@mr-pi.de"
 export PYTHONPATH="$HOME/.easy_install:/home/mrpi/.easy_install/lib/python2.7/site-packages"
-export PATH="$HOME/.local/bin/:$PATH:$HOME/node_modules/.bin/:$HOME/.easy_install/bin/"
+export PATH="/mnt/data/esp-open-sdk/xtensa-lx106-elf/bin/:$HOME/.local/bin/:$PATH:$HOME/node_modules/.bin/:$HOME/.easy_install/bin/"
 export LS_COLORS="di=0;35"
 
 alias ss="sudo su"
@@ -83,11 +83,23 @@ alias mv='mv -vi'
 alias cp='cp -vi'
 alias rm='rm -vI'
 alias mkdir='mkdir -v'
+alias ssh='TERM="screen-256color" ssh'
 
 if [[ -n $SSH_CONNECTION ]]; then
 	echo "remote session"
 else
 	echo "local session"
+fi
+
+if [ -f ~/.agent.env ]; then
+	. ~/.agent.env > /dev/null
+	if ! kill -0 $SSH_AGENT_PID 2>&1 >/dev/null; then
+		echo "Stale agent file found. Spawning new agent… "
+		eval `ssh-agent | tee ~/.agent.env`
+	fi
+else
+	echo "Starting ssh-agent"
+	eval `ssh-agent | tee ~/.agent.env`
 fi
 
 function publish {
