@@ -97,6 +97,7 @@ bindsym $mod+Shift+l exec "msi-keyboard -m normal -c middle,red,hight -c right,r
 bindsym XF86MonBrightnessUp exec "xbacklight -inc 2"
 bindsym XF86MonBrightnessDown exec "xbacklight -dec 2"
 bindsym $mod+p exec passmenu
+bindsym Print exec "/usr/bin/import -window root -quality 100 /tmp/screen.png"
 
 bindsym XF86AudioRaiseVolume exec "amixer -q sset Master 1%+"
 bindsym XF86AudioLowerVolume exec "amixer -q sset Master 1%-"
