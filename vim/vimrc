@@ -42,6 +42,7 @@ Plug 'elzr/vim-json'
 Plug 'vimwiki/vimwiki'
 Plug '907th/vim-auto-save'
 "Plug 'Yggdroot/indentLine'
+Plug 'Mr-Pi/ferm.vim'
 
 call plug#end()
 filetype plugin indent on
@@ -174,9 +175,17 @@ augroup END
 :augroup END
 
 "VimWiki
+let g:auto_toc = 1
+let g:auto_tags = 1
+let wiki1 = {}
+let wiki1.path = '~/hg/stuvusIT/wiki/vim/'
+let wiki1.path_html = '~/hg/stuvusIT/wiki/html'
+let wiki1.auto_export = 1
+let wiki1.auto_toc = 1
 let wiki2 = {}
-let wiki2.path = '~/hg/stuvusIT/wiki/vim/'
-let wiki2.path_html = '~/hg/stuvusIT/wiki/html'
+let wiki2.path = '~/hg/mitschrieb/'
+let wiki2.path_html = '~/hg/mitschrieb/html/'
 let wiki2.auto_export = 1
 let wiki2.auto_toc = 1
-let g:vimwiki_list = [wiki2]
+let g:vimwiki_list = [wiki1, wiki2]
+let g:custom_wiki2html = '/home/mrpi/Downloads/misaka_md2html.py'
