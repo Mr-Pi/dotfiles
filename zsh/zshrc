@@ -66,7 +66,7 @@ source $ZSH/oh-my-zsh.sh
 export NAME="Mr. Pi"
 export EMAIL="mrpi@mr-pi.de"
 export PYTHONPATH="$HOME/.easy_install:/home/mrpi/.easy_install/lib/python2.7/site-packages"
-export PATH="/mnt/data/esp-open-sdk/xtensa-lx106-elf/bin/:$HOME/.local/bin/:$PATH:$HOME/node_modules/.bin/:$HOME/.easy_install/bin/"
+export PATH="/mnt/data/esp-open-sdk/xtensa-lx106-elf/bin/:$HOME/.local/bin/:$PATH:$HOME/node_modules/.bin/:$HOME/.easy_install/bin/:/sbin/:/usr/sbin/"
 export LS_COLORS="di=0;35"
 
 alias ss="sudo su"
