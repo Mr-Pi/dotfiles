@@ -43,6 +43,8 @@ Plug 'vimwiki/vimwiki'
 Plug '907th/vim-auto-save'
 "Plug 'Yggdroot/indentLine'
 Plug 'Mr-Pi/ferm.vim'
+Plug 'pearofducks/ansible-vim'
+Plug 'davidhalter/jedi-vim'
 
 call plug#end()
 filetype plugin indent on

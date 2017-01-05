@@ -51,6 +51,9 @@ source ~/.envConf
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 plugins=(git adb urltools mercurial colored-man-pages colorize nmap rebar rsync pass)
 
+################################################################################
+# escape from tmux
+################################################################################
 if [ ! $TMUX ] && [ $DISPLAY ]; then
 	tmux
 	echo -ne "\e[1mexit term\e[0m [Y|n]?"
@@ -63,12 +66,23 @@ fi
 
 source $ZSH/oh-my-zsh.sh
 
+################################################################################
+# environment
+################################################################################
 export NAME="Mr. Pi"
 export EMAIL="mrpi@mr-pi.de"
 export PYTHONPATH="$HOME/.easy_install:/home/mrpi/.easy_install/lib/python2.7/site-packages"
-export PATH="/mnt/data/esp-open-sdk/xtensa-lx106-elf/bin/:$HOME/.local/bin/:$PATH:$HOME/node_modules/.bin/:$HOME/.easy_install/bin/:/sbin/:/usr/sbin/"
+export PATH="$PATH:/sbin/:/usr/sbin/" #super user utils
+export PATH="$PATH:/mnt/data/esp-open-sdk/xtensa-lx106-elf/bin/" #special cross compiler
+export PATH="$PATH:$HOME/.local/bin/" #misc user binary
+export PATH="$PATH:$HOME/.easy_install/bin/" #python easy install binary
+export PATH="$PATH:$HOME/.npm/bin/" #npm binary
+export PATH="$PATH:$HOME/.go/bin/" #go binary
 export LS_COLORS="di=0;35"
 
+################################################################################
+# useful aliases
+################################################################################
 alias ss="sudo su"
 alias readnote="echo -e \`cat ~/notiz.txt | grep -v '^#.*$'\`"
 alias newnote='read varNewNote; echo "\\\n\\\e[33m`date +%F`\\\e[1m:\\\e[0m $varNewNote" >> ~/notiz.txt'
@@ -85,6 +99,15 @@ alias rm='rm -vI'
 alias mkdir='mkdir -v'
 alias ssh='TERM="screen-256color" ssh'
 
+################################################################################
+# go
+################################################################################
+eval `go env`
+export GOPATH="$HOME/.go/"
+
+################################################################################
+# ssh
+################################################################################
 if [[ -n $SSH_CONNECTION ]]; then
 	echo "remote session"
 else
@@ -102,6 +125,9 @@ else
 	eval `ssh-agent | tee ~/.agent.env`
 fi
 
+################################################################################
+# data sharing
+################################################################################
 function publish {
 	[ $# -lt 1 ] && return 1
 	local HASH=`pwgen 32 1`
@@ -113,6 +139,9 @@ function publish {
 	[ $# -eq 1 ] && echo "$1«" || echo "«" 
 }
 
+################################################################################
+# pushover
+################################################################################
 function pushmsg {
 	[ -n "$PUSHOVER_API_URL" -a -n "$PUSHOVER_API_USER" -a -n "$PUSHOVER_API_TOKEN" ] &&
 	curl -s \
@@ -123,4 +152,19 @@ function pushmsg {
 		"${PUSHOVER_API_URL}" ||
 	echo -e "\e[1;31mPlease make sure that (\e[0;31mPUSHOVER_API_USER\e[1;31m,\e[0;31m PUSHOVER_API_TOKEN \e[1;31mand\e[0;31m PUSHOVER_API_URL\e[1;31m) are set correctly!\e[0m"
 	echo ""
+}
+
+################################################################################
+# git
+################################################################################
+function gi {
+	local tmpfile=`mktemp`
+	curl -L -s "https://www.gitignore.io/api/$@" >$tmpfile
+	if grep -q '^# Created by' $tmpfile; then
+		=cp -fv $tmpfile .gitignore
+		cat .gitignore
+	else
+		cat $tmpfile
+	fi
+	=rm $tmpfile
 }
