@@ -116,7 +116,7 @@ fi
 
 if [ -f ~/.agent.env ]; then
 	. ~/.agent.env > /dev/null
-	if ! kill -0 $SSH_AGENT_PID 2>&1 >/dev/null; then
+	if [ ! -S "$SSH_AUTH_SOCK" ]; then
 		echo "Stale agent file found. Spawning new agent… "
 		eval `ssh-agent | tee ~/.agent.env`
 	fi
