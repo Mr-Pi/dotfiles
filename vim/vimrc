@@ -137,6 +137,9 @@ nmap ff <C-]>
 "leader
 let mapleader=","
 
+"table mode (markdown-compatible)
+let g:table_mode_corner="|"
+
 "tmux integration
 let g:tmux_navigator_save_on_switch=1
 nmap <C-Left> :TmuxNavigateLeft<CR>
