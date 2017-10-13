@@ -98,6 +98,7 @@ alias cp='cp -vi'
 alias rm='rm -vI'
 alias mkdir='mkdir -v'
 alias ssh='TERM="screen-256color" ssh'
+alias HR='printf "\e[1m%*s\e[0m\n" "${COLUMNS:-$(tput cols)}" "" | tr " " -'
 
 ################################################################################
 # go
