@@ -45,6 +45,10 @@ Plug '907th/vim-auto-save'
 Plug 'Mr-Pi/ferm.vim'
 Plug 'pearofducks/ansible-vim'
 Plug 'davidhalter/jedi-vim'
+Plug 'will133/vim-dirdiff'
+Plug 'fatih/vim-go'
+Plug 'godlygeek/tabular'
+Plug 'plasticboy/vim-markdown'
 
 call plug#end()
 filetype plugin indent on
@@ -110,10 +114,6 @@ nmap <F7> :NERDTreeToggle<CR>
 nmap %dd i<C-r>=strftime("%F")<CR>
 nmap %dt i<C-r>=strftime("%T")<CR>
 
-"folding
-nmap fc :foldclose<CR>
-nmap fo :foldopen<CR>
-
 "spellcheck
 nmap %sn :set spell spelllang=""<CR>
 nmap %sd :set spell spelllang=de<CR>
@@ -139,6 +139,12 @@ let mapleader=","
 
 "table mode (markdown-compatible)
 let g:table_mode_corner="|"
+let g:vim_markdown_folding_disabled = 1
+let g:vim_markdown_folding_style_pythonic = 1
+set conceallevel=2
+let g:vim_markdown_no_extensions_in_markdown = 1
+let g:vim_markdown_fenced_languages = ['yml=yaml']
+
 
 "tmux integration
 let g:tmux_navigator_save_on_switch=1
@@ -194,3 +200,6 @@ let wiki2.auto_export = 1
 let wiki2.auto_toc = 1
 let g:vimwiki_list = [wiki1, wiki2]
 let g:custom_wiki2html = '/home/mrpi/Downloads/misaka_md2html.py'
+
+"misc
+autocmd BufNewFile,BufRead /home/mrpi/hg/stuvus_config*/*.yml set sw=2
