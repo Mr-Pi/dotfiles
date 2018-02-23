@@ -1,7 +1,8 @@
 /vim/bundle/
 /vim/spell/
 /vim/viminfo
-/vim/autoload/plug.vim
+/vim/autoload/plug.vim*
+/vim/undodir/
 /zprezto/
 /zsh/oh-my-zsh/
 *.swp
