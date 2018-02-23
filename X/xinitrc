@@ -6,7 +6,9 @@ xrdb -merge /etc/X11/xinit/Xresources
 xrdb -merge ~/.Xresources
 wpa_gui -t &
 thunderbird &
-syncthing -no-browser &
+nextcloud &
 xinput set-prop 'SynPS/2 Synaptics TouchPad' 'Synaptics Scrolling Distance' 80, 80
 xinput set-prop 'SynPS/2 Synaptics TouchPad' 'Synaptics Two-Finger Scrolling' 1, 1
+xmodmap -e 'keycode 87 = bracketleft'
+xmodmap -e 'keycode 88 = bracketright'
 #i3
