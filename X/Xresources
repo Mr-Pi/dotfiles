@@ -4,3 +4,6 @@ xterm*cursorOffTime:200
 xterm*cursorOnTime:300
 xterm*foreground:YellowGreen
 xterm*background:black
+XTerm.vt100.faceName: DejaVu Sans Mono:style=Book:antialias=false
+XTerm.vt100.faceNameDoublesize: WenQuanYi WenQuanYi Bitmap Song
+XTerm.vt100.faceSize: 8
