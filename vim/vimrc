@@ -22,9 +22,9 @@ Plug 'Mr-Pi/lagerLogSyntax'
 Plug 'ap/vim-css-color'
 Plug 'hail2u/vim-css3-syntax'
 Plug 'tpope/vim-eunuch'
-Plug 'vim-scripts/L9'
 Plug 'krisajenkins/vim-pipe'
 Plug 'dhruvasagar/vim-table-mode'
+"Plug 'lhzw/vim-table-mode'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'vim-erlang/vim-rebar'
 Plug 'vim-erlang/vim-erlang-compiler'
@@ -44,11 +44,17 @@ Plug '907th/vim-auto-save'
 "Plug 'Yggdroot/indentLine'
 Plug 'Mr-Pi/ferm.vim'
 Plug 'pearofducks/ansible-vim'
-Plug 'davidhalter/jedi-vim'
 Plug 'will133/vim-dirdiff'
 Plug 'fatih/vim-go'
 Plug 'godlygeek/tabular'
-Plug 'plasticboy/vim-markdown'
+"Plug 'plasticboy/vim-markdown'
+Plug 'python-mode/python-mode'
+Plug 'davidhalter/jedi-vim'
+Plug 'dahu/vim-help'
+Plug 'posva/vim-vue'
+Plug 'Glench/Vim-Jinja2-Syntax'
+Plug 'leafgarland/typescript-vim'
+Plug 'svjunic/RadicalGoodSpeed.vim'
 
 call plug#end()
 filetype plugin indent on
@@ -61,7 +67,8 @@ let g:solarized_visibility="high"
 "let g:solarized_bold=1
 "let g:solarized_underline=1
 "let g:solarized_italic=1
-colorscheme solarized
+"colorscheme solarized
+colorscheme radicalgoodspeed
 set number
 set ignorecase
 set incsearch
@@ -83,9 +90,35 @@ set ruler
 set t_ZH=[3m
 set t_ZR=[23m
 
+"python
+let g:jedi#use_splits_not_buffers = "bottom"
+let g:jedi#show_call_signatures = "2"
+let g:pymode_python = 'python3'
+let g:pymode = 1
+let g:pymode_trim_whitespaces = 1
+let g:pymode_options = 1
+let g:pymode_options_max_line_length = 80
+let g:pymode_indent = 1
+let g:pymode_lint_on_fly = 0
+let g:pymode_rope = 1
+let g:pymode_rope_lookup_project = 1
+let g:pymode_rope_show_doc_bind = ',d'
+let g:pymode_rope_autoimport = 1
+let g:pymode_rope_goto_definition_bind = '<leader>g'
+let g:pymode_run_bind = '<leader>c'
+let g:pymode_rope_rename_bind = '<leader>r'
+let g:pymode_rope_rename_module_bind = '<leader>mr'
+let g:pymode_rope_module_to_package_bind = '<leader>mp'
+let g:pymode_rope_show_doc_bind = '<leader>d'
+let g:pymode_breakpoint_cmd = 'ipdb'
+
 "show a undo tree (gundo)
 map <S-U> :GundoToggle<CR>
 let g:gundo_right = 1
+
+"better undo
+set undofile
+set undodir=~/.vim/undodir
 
 "better repeat command
 nmap . .`[
@@ -97,6 +130,7 @@ nmap tn :tabnext<CR>
 nmap tf :tabfirst<CR>
 nmap tp :tabprevious<CR>
 nmap to :tabnew<CR>:NERDTree<CR>
+nmap tC :tabclose<CR>
 
 "split screen
 nmap %vc :vsplit<CR>
@@ -131,6 +165,8 @@ map %xv x
 nmap %px "*p
 nmap %ps "+p
 nmap %pv p
+nmap <F9> "+
+nmap <F10> "*
 
 nmap ff <C-]>
 
