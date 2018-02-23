@@ -71,13 +71,14 @@ source $ZSH/oh-my-zsh.sh
 ################################################################################
 export NAME="Mr. Pi"
 export EMAIL="mrpi@mr-pi.de"
-export PYTHONPATH="$HOME/.easy_install:/home/mrpi/.easy_install/lib/python2.7/site-packages"
+export PYTHONPATH="$HOME/.easy_install:/home/mrpi/.easy_install/lib/python2.7/site-packages:/home/mrpi/.easy_install/lib/python3.4/site-packages"
 export PATH="$PATH:/sbin/:/usr/sbin/" #super user utils
 export PATH="$PATH:/mnt/data/esp-open-sdk/xtensa-lx106-elf/bin/" #special cross compiler
 export PATH="$PATH:$HOME/.local/bin/" #misc user binary
 export PATH="$PATH:$HOME/.easy_install/bin/" #python easy install binary
 export PATH="$PATH:$HOME/.npm/bin/" #npm binary
 export PATH="$PATH:$HOME/.go/bin/" #go binary
+export PATH="$PATH:$HOME/.dotfiles/scripts/" #dotfile scripts
 export LS_COLORS="di=0;35"
 
 ################################################################################
@@ -99,6 +100,17 @@ alias rm='rm -vI'
 alias mkdir='mkdir -v'
 alias ssh='TERM="screen-256color" ssh'
 alias HR='printf "\e[1m%*s\e[0m\n" "${COLUMNS:-$(tput cols)}" "" | tr " " -'
+
+alias gp='git push'
+alias gpo='branch="`git rev-parse --abbrev-ref HEAD`"; git push --set-upstream origin "$branch"'
+alias gf='branch="`git rev-parse --abbrev-ref HEAD`"; git fetch && git diff "$branch" "origin/$branch" && git merge'
+alias gr='branch="`git rev-parse --abbrev-ref HEAD`"; git fetch && git diff "$branch" "origin/$branch" && git rebase'
+alias gc='git commit'
+alias ga='git add'
+alias gb='git checkout'
+alias gbc='git checkout -b'
+alias gbd='git branch -d'
+alias gcs='git status'
 
 ################################################################################
 # go
@@ -169,3 +181,9 @@ function gi {
 	fi
 	=rm $tmpfile
 }
+
+###-tns-completion-start-###
+if [ -f /home/mrpi/.tnsrc ]; then 
+    source /home/mrpi/.tnsrc 
+fi
+###-tns-completion-end-###
