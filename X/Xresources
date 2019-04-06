@@ -7,3 +7,4 @@ xterm*background:black
 XTerm.vt100.faceName: DejaVu Sans Mono:style=Book:antialias=false
 XTerm.vt100.faceNameDoublesize: WenQuanYi WenQuanYi Bitmap Song
 XTerm.vt100.faceSize: 8
+XTerm.vt100.allowMouseOps:false
