@@ -49,7 +49,8 @@ source ~/.envConf
 
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
-plugins=(git adb urltools mercurial colored-man-pages colorize nmap rebar rsync pass)
+
+plugins=(command-time git adb urltools mercurial colored-man-pages colorize nmap rebar rsync pass)
 
 ################################################################################
 # escape from tmux
@@ -64,11 +65,16 @@ if [ ! $TMUX ] && [ $DISPLAY ]; then
 	fi
 fi
 
+HISTSIZE=10000000
+SAVEHIST=10000000
 source $ZSH/oh-my-zsh.sh
+
 
 ################################################################################
 # environment
 ################################################################################
+HISTSIZE=10000000
+SAVEHIST=10000000
 export NAME="Mr. Pi"
 export EMAIL="mrpi@mr-pi.de"
 export PYTHONPATH="$HOME/.easy_install:/home/mrpi/.easy_install/lib/python2.7/site-packages:/home/mrpi/.easy_install/lib/python3.4/site-packages"
@@ -103,14 +109,18 @@ alias HR='printf "\e[1m%*s\e[0m\n" "${COLUMNS:-$(tput cols)}" "" | tr " " -'
 
 alias gp='git push'
 alias gpo='branch="`git rev-parse --abbrev-ref HEAD`"; git push --set-upstream origin "$branch"'
-alias gf='branch="`git rev-parse --abbrev-ref HEAD`"; git fetch && git diff "$branch" "origin/$branch" && git merge'
+alias gf='branch="`git rev-parse --abbrev-ref HEAD`"; git fetch && { git diff "$branch" "origin/$branch"; git merge; }'
 alias gr='branch="`git rev-parse --abbrev-ref HEAD`"; git fetch && git diff "$branch" "origin/$branch" && git rebase'
 alias gc='git commit'
 alias ga='git add'
 alias gb='git checkout'
 alias gbc='git checkout -b'
 alias gbd='git branch -d'
-alias gcs='git status'
+alias gs='git status'
+alias d='dirs -v | head -n 10 | sort && read dir_index && [ -n "$dir_index" ] && cd -$dir_index; true'
+
+alias unlock="ssh build01 ~/unlock.sh"
+alias lock="ssh build01 ~/lock.sh"
 
 ################################################################################
 # go
@@ -167,10 +177,30 @@ function pushmsg {
 	echo ""
 }
 
+
+################################################################################
+# command execution time
+################################################################################
+ZSH_COMMAND_TIME_MIN_SECONDS=30
+zsh_command_time() {
+	last_command=$(history -1)
+	last_command_only=$(echo "$last_command" | cut -d' ' -f 6)
+	ignore_commands=(vim ssh)
+	for ignore_command in $ignore_commands; do
+		[[ "$ignore_command" == "$last_command_only" ]] && return
+	done
+	hours=$(($ZSH_COMMAND_TIME/3600))
+	min=$(($ZSH_COMMAND_TIME/60))
+	sec=$(($ZSH_COMMAND_TIME%60))
+	msg="Command finished ($hours:$min:$sec): »$last_command«"
+	echo "$msg"
+	pushmsg "$msg"
+}
+
 ################################################################################
 # git
 ################################################################################
-function gi {
+function gii {
 	local tmpfile=`mktemp`
 	curl -L -s "https://www.gitignore.io/api/$@" >$tmpfile
 	if grep -q '^# Created by' $tmpfile; then

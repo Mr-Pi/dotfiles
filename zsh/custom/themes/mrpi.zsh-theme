@@ -44,6 +44,7 @@ local git_info='$fg[blue]$(git_current_branch)$(git_prompt_short_sha)$(git_promp
 
 PROMPT="╭─${user_host} ${current_dir} ${rvm_ruby} %{${git_info}%}
 ╰─%B$%b "
+[[ -n "$PS1_EXPAND" ]] && PROMPT="$PROMPT$PS1_EXPAND"
 RPS1="${return_code} ${mydate}"
 
 ZSH_THEME_GIT_PROMPT_PREFIX="%{$fg[yellow]%}‹"
