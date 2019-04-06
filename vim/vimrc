@@ -4,6 +4,7 @@ filetype off
 "plugins
 call plug#begin('~/.vim/bundle')
 
+Plug 'airblade/vim-gitgutter'
 Plug 'sjl/gundo.vim'
 Plug 'altercation/vim-colors-solarized'
 Plug 'gregsexton/MatchTag'
@@ -35,7 +36,8 @@ Plug 'vim-erlang/vim-erlang-tags'
 Plug 'vim-erlang/erlang-motions.vim'
 Plug 'vim-erlang/vim-dialyzer'
 Plug 'majutsushi/tagbar'
-Plug 'vim-scripts/taglist.vim'
+"Plug 'vim-scripts/taglist.vim'
+"Plug 'Valloric/YouCompleteMe'
 Plug 'scrooloose/syntastic'
 Plug 'Raimondi/delimitMate'
 Plug 'elzr/vim-json'
@@ -55,6 +57,13 @@ Plug 'posva/vim-vue'
 Plug 'Glench/Vim-Jinja2-Syntax'
 Plug 'leafgarland/typescript-vim'
 Plug 'svjunic/RadicalGoodSpeed.vim'
+Plug 'mhinz/vim-startify'
+Plug 'uplus/vim-clang-rename'
+Plug 'justmao945/vim-clang'
+Plug 'mkitt/tabline.vim'
+Plug 'Mr-Pi/git-blame.vim'
+Plug 'rhysd/git-messenger.vim'
+Plug 'pedrohdz/vim-yaml-folds'
 
 call plug#end()
 filetype plugin indent on
@@ -67,8 +76,8 @@ let g:solarized_visibility="high"
 "let g:solarized_bold=1
 "let g:solarized_underline=1
 "let g:solarized_italic=1
-"colorscheme solarized
-colorscheme radicalgoodspeed
+colorscheme solarized
+"colorscheme radicalgoodspeed
 set number
 set ignorecase
 set incsearch
@@ -76,7 +85,7 @@ set nohlsearch
 set wildmenu
 set showcmd
 set bs=2 "allow backspace in insert mode
-set history=1500
+set history=5000
 set autoread "Set to auto read when a file is changed from the outside
 set showmatch
 set wrap
@@ -94,7 +103,7 @@ set t_ZR=[23m
 let g:jedi#use_splits_not_buffers = "bottom"
 let g:jedi#show_call_signatures = "2"
 let g:pymode_python = 'python3'
-let g:pymode = 1
+let g:pymode = 0
 let g:pymode_trim_whitespaces = 1
 let g:pymode_options = 1
 let g:pymode_options_max_line_length = 80
@@ -113,10 +122,10 @@ let g:pymode_rope_show_doc_bind = '<leader>d'
 let g:pymode_breakpoint_cmd = 'ipdb'
 
 "show a undo tree (gundo)
-map <S-U> :GundoToggle<CR>
+nmap <S-U> :GundoToggle<CR>
 let g:gundo_right = 1
 
-"better undo
+"better undo (persitent history)
 set undofile
 set undodir=~/.vim/undodir
 
@@ -124,6 +133,9 @@ set undodir=~/.vim/undodir
 nmap . .`[
 
 "tab management
+"hi TabLine      ctermfg=Black  ctermbg=LightGray     cterm=NONE
+"hi TabLineFill  ctermfg=Black  ctermbg=LightGray     cterm=NONE
+hi TabLineSel   ctermfg=Black  ctermbg=Green         cterm=NONE
 set showtabline=2
 nmap tc :tabnew<CR>
 nmap tn :tabnext<CR>
@@ -137,12 +149,16 @@ nmap %vc :vsplit<CR>
 nmap %hc :split<CR>
 nmap %vn <C-w><C-w>
 
+"Tagbar
+nmap <F8> :TagbarToggle<CR>
+
 "toggle line numbering and toggle show search result
 nmap <F6> :set invnumber<CR>
 nmap <C-n> :set invhlsearch<CR>
 
 "F7 toggles NERDTree
 nmap <F7> :NERDTreeToggle<CR>
+"let NERDTreeQuitOnOpen=1
 
 "text snippets
 nmap %dd i<C-r>=strftime("%F")<CR>
@@ -165,8 +181,12 @@ map %xv x
 nmap %px "*p
 nmap %ps "+p
 nmap %pv p
+map <F9> "+
+map <F10> "*
 nmap <F9> "+
 nmap <F10> "*
+vmap <F9> "+
+vmap <F10> "*
 
 nmap ff <C-]>
 
@@ -237,5 +257,33 @@ let wiki2.auto_toc = 1
 let g:vimwiki_list = [wiki1, wiki2]
 let g:custom_wiki2html = '/home/mrpi/Downloads/misaka_md2html.py'
 
+"session and bla
+let g:auto_save = 1
+let g:startify_session_dir = '~/.vim/session'
+let g:startify_session_autoload = 1
+let g:startify_session_persistence = 1
+
+"C,C++
+let g:clang_c_options = '-std=c99'
+autocmd FileType c,cpp nmap <buffer><silent>,lr <Plug>(clang_rename-current)
+
 "misc
 autocmd BufNewFile,BufRead /home/mrpi/hg/stuvus_config*/*.yml set sw=2
+autocmd BufNewFile,BufRead /home/mrpi/hg/stuvus_config*/*/*.yml set sw=2
+autocmd BufNewFile,BufRead /home/mrpi/hg/stuvus_config*/*/*/*.yml set sw=2
+autocmd BufNewFile,BufRead /home/mrpi/hg/server/ansible/*.yml set sw=2
+autocmd BufNewFile,BufRead /home/mrpi/hg/server/ansible/*/*.yml set sw=2
+autocmd BufNewFile,BufRead /home/mrpi/hg/server/ansible/*/*/*.yml set sw=2
+autocmd BufNewFile,BufRead /home/mrpi/hg/server/rapu/new/ansible/*.yml set sw=2
+autocmd BufNewFile,BufRead /home/mrpi/hg/server/rapu/new/ansible/*/*.yml set sw=2
+autocmd BufNewFile,BufRead /home/mrpi/hg/server/rapu/new/ansible/*/*/*.yml set sw=2
+
+"git
+let g:gitgutter_terminal_reports_focus = 0
+let g:git_messenger_close_on_cursor_moved = v:false
+let g:git_messenger_always_into_popup = v:true
+nmap <DOWN> j:call gitblame#echo()<CR>
+nmap <UP>   k:call gitblame#echo()<CR>
+"nmap j      <DOWN>
+"nmap k      <UP>
+set shortmess+=O
